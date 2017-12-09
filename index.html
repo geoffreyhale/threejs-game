@@ -27,22 +27,11 @@
 </head>
 <body>
 <div id="info">Description</div>
-<script src="js/three.js"></script>
-<script src="js/init.js"></script>
-<script src="js/scene.js"></script>
+
+<script src="vendor/three.js"></script>
+<script src="js/world.js"></script>
 <script src="js/input.js"></script>
 <script src="js/move.js"></script>
 <script src="js/game.js"></script>
-<script>
-    // Render/Animate Loop
-    function animate() {
-        game(camera, keysDown);
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-    }
-    animate();
-
-
-</script>
 </body>
 </html>

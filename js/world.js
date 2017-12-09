@@ -45,10 +45,6 @@ for (let x = 0; x < WORLD.SIZE.x; x++) {
     }
 }
 
-const cube = new THREE.Mesh(GEOMETRY.BOX, MATERIAL.DEFAULT);
-const cube2 = new THREE.Mesh(GEOMETRY.BOX, MATERIAL.WATER);
-cube2.position.x = 1;
-
 const scene = new THREE.Scene();
 CUBES.forEach((cubeRow) => {
     cubeRow.forEach((cube) => {
