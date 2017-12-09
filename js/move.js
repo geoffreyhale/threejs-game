@@ -3,7 +3,7 @@ const move = (camera, keysDown) => {
         position: {
             x: 0,
             y: 0,
-            z: 5
+            z: 10
         },
         rotation: {
             y: 0
@@ -14,7 +14,7 @@ const move = (camera, keysDown) => {
         VERTICAL: 0.1,
         STRAFE: 0.1,
         FORWARD: 0.1,
-        BACKWARD: 0.05,
+        BACKWARD: 0.1,
         ROTATION: 0.02,
     };
 
@@ -44,10 +44,10 @@ const move = (camera, keysDown) => {
             camera.position.z += SPEED.BACKWARD;
         }
         if (key === KEYS.LEFT) {
-            camera.rotation.y += SPEED.ROTATION;
+            camera.rotation.z += SPEED.ROTATION;
         }
         if (key === KEYS.RIGHT) {
-            camera.rotation.y -= SPEED.ROTATION;
+            camera.rotation.z -= SPEED.ROTATION;
         }
     });
 };
