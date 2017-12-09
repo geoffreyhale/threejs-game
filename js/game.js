@@ -1,3 +1,5 @@
+Overlay.init();
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -8,6 +10,7 @@ camera.position.z = CAMERA.DEFAULT.POSITION.Z;
 // Render/Animate Loop
 function animate() {
     move(camera, keysDown);
+    Overlay.update(camera);
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
 }

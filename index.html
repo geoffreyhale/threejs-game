@@ -14,21 +14,24 @@
             height: 100%
         }
 
-        #info {
+        #overlay {
             color: white;
             position: absolute;
             top: 10px;
+            left: 10px;
             width: 100%;
             text-align: left;
             z-index: 100;
             display: block;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
-<div id="info">Description</div>
+<div id="overlay">Loading...</div>
 
 <script src="vendor/three.js"></script>
+<script src="js/overlay.js"></script>
 <script src="js/world.js"></script>
 <script src="js/input.js"></script>
 <script src="js/move.js"></script>
