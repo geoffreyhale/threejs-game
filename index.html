@@ -28,79 +28,15 @@
 <body>
 <div id="info">Description</div>
 <script src="js/three.js"></script>
+<script src="js/init.js"></script>
+<script src="js/scene.js"></script>
+<script src="js/input.js"></script>
+<script src="js/game.js"></script>
 <script>
-    // Setup
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-    var renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-
-    // The Cube
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
-    var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-    var cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    camera.position.z = 5;
-
-
-    const KEYS = {
-        "W": 87,
-        "A": 65,
-        "S": 83,
-        "D": 68,
-        "R": 82,
-        "UP": 38,
-        "DOWN": 40,
-        "LEFT": 37,
-        "RIGHT": 39,
-    };
-    const keysDown = [];
-    document.onkeydown = function (e) {
-        console.log(e.keyCode);
-        keysDown.indexOf(e.keyCode) === -1 && keysDown.push(e.keyCode);
-    };
-    document.onkeyup = function (e) {
-        keysDown.indexOf(e.keyCode) !== -1 && keysDown.splice(keysDown.indexOf(e.keyCode));
-    };
-
-
     // Render/Animate Loop
     function animate() {
+        game(camera, keysDown);
         requestAnimationFrame(animate);
-
-        keysDown.forEach((key) => {
-            if (key === KEYS.W) {
-                camera.position.y++;
-            }
-            if (key === KEYS.S) {
-                camera.position.y--;
-            }
-            if (key === KEYS.A) {
-                camera.position.x--;
-            }
-            if (key === KEYS.D) {
-                camera.position.x++;
-            }
-            if (key === KEYS.R) {
-                camera.position.x = 0;
-                camera.position.y = 0;
-                camera.position.z = 5;
-            }
-            if (key === KEYS.UP) {
-                camera.position.z--;
-            }
-            if (key === KEYS.DOWN) {
-                camera.position.z++;
-            }
-            if (key === KEYS.LEFT) {
-                camera.rotation++;
-                console.log(camera.rotation);
-            }
-        });
-
         renderer.render(scene, camera);
     }
     animate();
