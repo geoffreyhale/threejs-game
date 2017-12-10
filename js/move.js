@@ -3,7 +3,7 @@ const CAMERA = {
         POSITION: {
             X: 0,
             Y: 0,
-            Z: 20,
+            Z: 40,
             SPEED: 1
         },
         ROTATION: {
@@ -17,18 +17,27 @@ const CAMERA = {
 
 const move = (camera, keysDown) => {
     keysDown.forEach((key) => {
+        //Forward
         if (key === KEYS.W) {
-            camera.position.y += CAMERA.DEFAULT.POSITION.SPEED;
+            camera.position.y += CAMERA.DEFAULT.POSITION.SPEED * Math.cos(camera.rotation.z);
+            camera.position.x += CAMERA.DEFAULT.POSITION.SPEED * Math.sin(camera.rotation.z + Math.PI);
         }
+        //Backward
         if (key === KEYS.S) {
-            camera.position.y -= CAMERA.DEFAULT.POSITION.SPEED;
+            camera.position.y += CAMERA.DEFAULT.POSITION.SPEED * Math.cos(camera.rotation.z + Math.PI);
+            camera.position.x += CAMERA.DEFAULT.POSITION.SPEED * Math.sin(camera.rotation.z);
         }
+        //Strafe Left
         if (key === KEYS.A) {
-            camera.position.x -= CAMERA.DEFAULT.POSITION.SPEED;
+            camera.position.y += CAMERA.DEFAULT.POSITION.SPEED * Math.sin(camera.rotation.z + Math.PI);
+            camera.position.x += CAMERA.DEFAULT.POSITION.SPEED * Math.cos(camera.rotation.z + Math.PI);
         }
+        //Strafe Right
         if (key === KEYS.D) {
-            camera.position.x += CAMERA.DEFAULT.POSITION.SPEED;
+            camera.position.y += CAMERA.DEFAULT.POSITION.SPEED * Math.sin(camera.rotation.z);
+            camera.position.x += CAMERA.DEFAULT.POSITION.SPEED * Math.cos(camera.rotation.z);
         }
+        //Reset
         if (key === KEYS.R) {
             camera.position.x = CAMERA.DEFAULT.POSITION.X;
             camera.position.y = CAMERA.DEFAULT.POSITION.Y;
@@ -38,16 +47,16 @@ const move = (camera, keysDown) => {
             camera.rotation.z = CAMERA.DEFAULT.ROTATION.Z;
         }
         if (key === KEYS.UP) {
-            camera.rotation.x -= CAMERA.DEFAULT.ROTATION.SPEED;
+            camera.position.z -= CAMERA.DEFAULT.POSITION.SPEED;
         }
         if (key === KEYS.DOWN) {
-            camera.rotation.x += CAMERA.DEFAULT.ROTATION.SPEED;
+            camera.position.z += CAMERA.DEFAULT.POSITION.SPEED;
         }
         if (key === KEYS.LEFT) {
-            camera.rotation.y += CAMERA.DEFAULT.ROTATION.SPEED;
+            camera.rotation.z += CAMERA.DEFAULT.ROTATION.SPEED;
         }
         if (key === KEYS.RIGHT) {
-            camera.rotation.y -= CAMERA.DEFAULT.ROTATION.SPEED;
+            camera.rotation.z -= CAMERA.DEFAULT.ROTATION.SPEED;
         }
     });
 };
