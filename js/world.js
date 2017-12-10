@@ -1,11 +1,16 @@
+/**
+ * Pallette
+ */
 const COLOR = {
     BLUE: 0x0000ff,
+    DARKGREEN: 0x008800,
     GREEN: 0x00ff00,
     WHITE: 0xffffff,
 };
 
 const MATERIAL = {
     DEFAULT: new THREE.MeshBasicMaterial({color: COLOR.WHITE}),
+    TREE: new THREE.MeshBasicMaterial({color: COLOR.DARKGREEN}),
     GRASS: new THREE.MeshBasicMaterial({color: COLOR.GREEN}),
     WATER: new THREE.MeshBasicMaterial({color: COLOR.BLUE}),
 };
@@ -13,6 +18,10 @@ const MATERIAL = {
 const GEOMETRY = {
     BOX: new THREE.BoxGeometry(1, 1, 1),
 };
+
+/**
+ * Build
+ */
 
 const CUBES = [];
 
@@ -28,9 +37,13 @@ const getMaterial = (x, y) => {
     if (x - y >= 2 && x - y <= 4) {
         return MATERIAL.WATER;
     }
-
+    //ocean
     if (x - y >= 2 && x - 2*y > 2) {
         return MATERIAL.WATER;
+    }
+    //trees
+    if (x % 4 == 0 && y % 4 == 0) {
+        return MATERIAL.TREE;
     }
 
     return MATERIAL.GRASS;
@@ -44,6 +57,10 @@ for (let x = 0; x < WORLD.SIZE.x; x++) {
         CUBES[x][y].position.y = y;
     }
 }
+
+/**
+ * Show
+ */
 
 const scene = new THREE.Scene();
 CUBES.forEach((cubeRow) => {
