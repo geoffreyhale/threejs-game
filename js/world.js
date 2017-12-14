@@ -28,12 +28,12 @@ const GEOMETRY = {
  */
 const WORLD = {
     SIZE: {
-        x: 10,
-        y: 10,
+        x: 200,
+        y: 200,
 
     },
-    baseHeight: 65,
-    waterLevel: 63,
+    baseHeight: 51,
+    waterLevel: 50,
 };
 
 const getMaterial = (worldCubeObject) => {
@@ -51,6 +51,25 @@ const getMaterial = (worldCubeObject) => {
     }
 };
 
+const smoothWorld = (world) => {
+    const newWorld = [];
+    for (let x in world) {
+        x = parseInt(x);
+        newWorld[x] = [];
+        for (let y in world) {
+            y = parseInt(y);
+            newWorld[x][y] = {};
+            newWorld[x][y].elevation = (
+                world[x-1 >= 0 ? x-1 : 0][y].elevation
+                + world[x+1 < WORLD.SIZE.x ? x+1 : WORLD.SIZE.x - 1][y].elevation
+                + world[x][y-1 >= 0 ? y-1 : 0].elevation
+                + world[x][y+1 < WORLD.SIZE.y ? y+1 : WORLD.SIZE.y - 1].elevation
+                )/4;
+        }
+    }
+    return newWorld;
+};
+
 /**
  * Get Random Int Inclusive
  * The minimum and maximum are inclusive
@@ -61,7 +80,7 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const world = [];
+let world = [];
 for (let x = 0; x < WORLD.SIZE.x; x++) {
     world[x] = [];
     for (let y = 0; y < WORLD.SIZE.y; y++) {
@@ -70,7 +89,10 @@ for (let x = 0; x < WORLD.SIZE.x; x++) {
         };
     }
 }
-console.log(world);
+world = smoothWorld(world);
+world = smoothWorld(world);
+
+//console.log(world);
 
 const CUBES = [];
 
@@ -82,7 +104,7 @@ for (let x = 0; x < WORLD.SIZE.x; x++) {
         CUBES[x][y].position.y = y;
     }
 }
-console.log(CUBES);
+//console.log(CUBES);
 
 /**
  * Show
