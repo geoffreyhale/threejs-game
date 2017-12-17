@@ -1,10 +1,10 @@
 const CAMERA = {
     DEFAULT: {
         POSITION: {
-            X: 0,
-            Y: 0,
-            Z: 40,
-            SPEED: 1
+            X: 100,
+            Y: 100,
+            Z: 10,
+            SPEED: 0.2
         },
         ROTATION: {
             X: 0,

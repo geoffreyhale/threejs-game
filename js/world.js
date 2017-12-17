@@ -64,7 +64,30 @@ const smoothWorld = (world) => {
                 + world[x+1 < WORLD.SIZE.x ? x+1 : WORLD.SIZE.x - 1][y].elevation
                 + world[x][y-1 >= 0 ? y-1 : 0].elevation
                 + world[x][y+1 < WORLD.SIZE.y ? y+1 : WORLD.SIZE.y - 1].elevation
-                )/4;
+                )/4
+            ;
+        }
+    }
+    return newWorld;
+};
+
+const makeWaterIfAllFourAdjacentAreWater = (world) => {
+    const newWorld = [];
+    for (let x in world) {
+        x = parseInt(x);
+        newWorld[x] = [];
+        for (let y in world) {
+            y = parseInt(y);
+            newWorld[x][y] = {};
+            if (world[x-1 >= 0 ? x-1 : 0][y].elevation < WORLD.waterLevel
+                && world[x+1 < WORLD.SIZE.x ? x+1 : WORLD.SIZE.x - 1][y].elevation < WORLD.waterLevel
+                && world[x][y-1 >= 0 ? y-1 : 0].elevation  < WORLD.waterLevel
+                && world[x][y+1 < WORLD.SIZE.y ? y+1 : WORLD.SIZE.y - 1].elevation  < WORLD.waterLevel
+            ) {
+                newWorld[x][y].elevation = WORLD.waterLevel;
+            } else {
+                newWorld[x][y] = world[x][y];
+            }
         }
     }
     return newWorld;
@@ -90,7 +113,10 @@ for (let x = 0; x < WORLD.SIZE.x; x++) {
     }
 }
 world = smoothWorld(world);
+world = makeWaterIfAllFourAdjacentAreWater(world);
 world = smoothWorld(world);
+world = makeWaterIfAllFourAdjacentAreWater(world);
+world = makeWaterIfAllFourAdjacentAreWater(world);
 
 //console.log(world);
 
