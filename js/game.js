@@ -11,7 +11,7 @@ camera.position.z = CAMERA.DEFAULT.POSITION.Z;
 
 // Render/Animate Loop
 function animate() {
-    move(camera, keysDown);
+    move(camera, userInput);
     Overlay.update(camera);
     requestAnimationFrame(animate);
     renderer.render(scene, camera);

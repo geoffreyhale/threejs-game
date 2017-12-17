@@ -3,7 +3,7 @@ const CAMERA = {
         POSITION: {
             X: 100,
             Y: 100,
-            Z: 10,
+            Z: 20,
             SPEED: 0.2
         },
         ROTATION: {
@@ -15,8 +15,20 @@ const CAMERA = {
     }
 };
 
-const move = (camera, keysDown) => {
-    keysDown.forEach((key) => {
+const move = (camera, userInput) => {
+    const KEYS = {
+        "W": 87,
+        "A": 65,
+        "S": 83,
+        "D": 68,
+        "R": 82,
+        "UP": 38,
+        "DOWN": 40,
+        "LEFT": 37,
+        "RIGHT": 39,
+    };
+
+    userInput.keysDown.forEach((key) => {
         //Forward
         if (key === KEYS.W) {
             camera.position.y += CAMERA.DEFAULT.POSITION.SPEED * Math.cos(camera.rotation.z);
@@ -52,11 +64,14 @@ const move = (camera, keysDown) => {
         if (key === KEYS.DOWN) {
             camera.position.z += CAMERA.DEFAULT.POSITION.SPEED;
         }
-        if (key === KEYS.LEFT) {
-            camera.rotation.z += CAMERA.DEFAULT.ROTATION.SPEED;
-        }
-        if (key === KEYS.RIGHT) {
-            camera.rotation.z -= CAMERA.DEFAULT.ROTATION.SPEED;
-        }
+        // if (key === KEYS.LEFT) {
+        //     camera.rotation.z += CAMERA.DEFAULT.ROTATION.SPEED;
+        // }
+        // if (key === KEYS.RIGHT) {
+        //     camera.rotation.z -= CAMERA.DEFAULT.ROTATION.SPEED;
+        // }
     });
+
+
+    camera.rotation.z = - userInput.mouse.clientX * 2*Math.PI / document.body.clientWidth;
 };
